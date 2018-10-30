@@ -1,0 +1,37 @@
+create table customer(customerId int primary key auto_increment,
+firstName varchar(25)  not null,
+lastName varchar(25),
+dateOfBirth date,
+emailId varchar(50) unique,
+mobile varchar(10));
+
+
+
+create table address(addressId int primary key auto_increment,
+addressLine1 varchar(25),
+addressLine2 varchar(25),
+city varchar(25),
+state varchar(25),
+pincode varchar(25), 
+customerId int references customer(customerId));
+
+
+create table account(
+accountNumber int primary key,
+accountType varchar(25),
+openingDate date,
+openingBalance numeric(8,2),
+description varchar(100),
+customerId int references customer(customerId));
+
+
+
+create table acc_transaction(
+transactionId int primary key auto_increment,
+transactionDate date, 
+fromAccount int references account(accountNumber),
+toAccount int references account(accountNumber),
+amount numeric(8,2),
+description varchar(100),
+transactionType varchar(25)
+);
